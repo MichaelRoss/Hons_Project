@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start: MyString
+  end: MyString
+  sleepquality: MyString
+  timeinbed: MyString
+  mood: MyString
+  notes: MyString
+
+two:
+  start: MyString
+  end: MyString
+  sleepquality: MyString
+  timeinbed: MyString
+  mood: MyString
+  notes: MyString

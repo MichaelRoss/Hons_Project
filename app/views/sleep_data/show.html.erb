@@ -1,0 +1,11 @@
+<% provide(:title, 'Sleep Data') %>
+
+<h1> Sleep Data </h1>
+<p> Went to bed: <%=@sleep_data.start.byteslice(11..20)%> </br>
+	Woke up: <%=@sleep_data.end.byteslice(11..20)%> </br>
+	Sleep Quality: <%=@sleep_data.sleepquality%>%</br>
+	Time in Bed: <%=@sleep_data.timeinbed%></br>
+	Wake Up Mood:  <%=@sleep_data.mood%></br>
+	Notes: <%=@sleep_data.notes%></br>
+</p>
+

@@ -1,4 +1,6 @@
 HonsProject::Application.routes.draw do
+  resources :sleep_data
+
   root :to => 'static_pages#home'
 
   # The priority is based upon order of creation:
