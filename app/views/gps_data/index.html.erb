@@ -1,0 +1,46 @@
+<% provide(:title, 'Movement Outside The Home') %>
+<h1>Movement Outside The Home</h1>
+<script src="http://maps.googleapis.com/maps/api/js?key=	
+AIzaSyCFs3gPRjWV2ACSdgz-n077mrafaKssQ1w&sensor=false">
+</script>
+<script>
+<% @g.each do |gps| %>
+var point<%=gps.id%> = new google.maps.LatLng(<%=gps.lat%>,<%=gps.lng%>)
+<%end%>
+function initialize()
+{
+var mapProp = {
+  center: new google.maps.LatLng(<%=(@g.first.lat+@g.last.lat)/2%>,<%=(@g.first.lng+@g.last.lng)/2%>),
+  zoom:13,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+var map=new google.maps.Map(document.getElementById("googleMap")
+  ,mapProp);
+
+<% @g.each do |gps| %>
+var marker<%=gps.id%>=new google.maps.Marker({
+  position:point<%=gps.id%>,
+  });
+
+marker<%=gps.id%>.setMap(map);
+<%end%>
+
+
+var myTrip=[<%@g.each_with_index do |gps,index|%><%if index +1 != @g.length%>point<%=gps.id%>,<%end%><%end%>point<%=@g.last.id%>];
+var flightPath=new google.maps.Polyline({
+  path:myTrip,
+  strokeColor:"#0000FF",
+  strokeOpacity:0.8,
+  strokeWeight:2
+  });
+
+flightPath.setMap(map);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+
+<body>
+<div id="googleMap" style="width:500px;height:380px;"></div>
+
+</body>

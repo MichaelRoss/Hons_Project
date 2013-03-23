@@ -1,4 +1,6 @@
 HonsProject::Application.routes.draw do
+ resources :gps_data
+
   resources :sleep_data
 
   root :to => 'static_pages#home'

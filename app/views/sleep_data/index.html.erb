@@ -6,19 +6,23 @@
 
 <h1> Sleep Data </h1>
 
-<div id="myfirstchart" style="height: 250px;"></div>
+<div id="sleepqualitychart" style="height: 250px;"></div>
+<div id="moodchart" style ="height: 250px"></div>
+
+<a href="#" id="link_1">Sleep Quality Graph</a></br>
+<a href="#" id="link_2">Time in Bed Graph</a></br></br>
 
 <ul class="thumbnails">
 <% @sd.each do |sleep_data| %>
-	<li class="span4">
-	<p> Day: <%=sleep_data.start.byteslice(0..10)%></br></br>
-	Went to bed: <%=sleep_data.start.byteslice(11..20)%> </br>
-	Woke up: <%=sleep_data.end.byteslice(11..20)%> </br>
-	Sleep Quality: <%=sleep_data.sleepquality%>%</br>
-	Time in Bed: <%=sleep_data.timeinbed%></br>
-	Wake Up Mood:  <%=sleep_data.mood%></br>
-	Notes: <%=sleep_data.notes%></br>
-	</p>
+<li class="span4">
+<p> Day: <%=sleep_data.start.byteslice(0..10)%></br></br>
+Went to bed: <%=sleep_data.start.byteslice(11..20)%> </br>
+Woke up: <%=sleep_data.end.byteslice(11..20)%> </br>
+Sleep Quality: <%=sleep_data.sleepquality%>%</br>
+Time in Bed: <%=sleep_data.timeinbed%></br>
+Wake Up Mood: <%=sleep_data.mood%></br>
+Notes: <%=sleep_data.notes%></br>
+</p>
 </li>
 <% end %>
 </ul>
@@ -26,13 +30,13 @@
 <script type="text/javascript">
 new Morris.Bar({
   // ID of the element in which to draw the chart.
-  element: 'myfirstchart',
+  element: 'sleepqualitychart',
   // Chart data records -- each entry in this array corresponds to a point on
   // the chart.
   data: [
   <% @sd.each do |sleep_data| %>
-    { Day: '<%= sleep_data.start.byteslice(0..10) %>', SleepQuality:'<%= sleep_data.sleepquality %>'  },
-	<%end%>
+    { Day: '<%= sleep_data.start.byteslice(0..10) %>', SleepQuality:'<%= sleep_data.sleepquality %>' },
+<%end%>
   ],
   // The name of the data record attribute that contains x-values.
   xkey: 'Day',
@@ -40,11 +44,47 @@ new Morris.Bar({
   ykeys: ['SleepQuality'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['%'],
-  hideHover: 'auto'
+  labels: ['Sleep Quality(%)'],
+
 });
+</script>
 
+<script type="text/javascript">
+new Morris.Bar({
+  // ID of the element in which to draw the chart.
+  element: 'moodchart',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: [
+  <% @sd.each do |sleep_data| %>
+    { Day: '<%= sleep_data.start.byteslice(0..10) %>', SleepTime:'<%= sleep_data.timeinbed %>' },
+<%end%>
+  ],
+  // The name of the data record attribute that contains x-values.
+  xkey: 'Day',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['SleepTime'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['Time in Bed(Hours)'],
 
+});
+</script>
 
+<script type="text/javascript">
+$(document).ready(function(){
 
+  // Hide div 2 by default
+  $('#moodchart').hide();
+
+  $('#link_2').click(function(){
+      $('#sleepqualitychart').hide();
+      $('#moodchart').show();
+  });
+
+  $('#link_1').click(function(){
+      $('#moodchart').hide();
+      $('#sleepqualitychart').show();
+  });
+});
 </script>
